@@ -32,7 +32,7 @@ export default function RootLayout() {
         <Stack.Screen name="view-task-details/view-tasks/[id]" options={{ title: 'Task details' }} /> 
         <Stack.Screen name="user-tasks/index" options={{ title: "User tasks" }}  />
         <Stack.Screen name="inactive-users/index" options={{ title: "Inactive users" }} />
-        <Stack.Screen name="noification-page/index" options={{ title: "Notification page" }}  
+        <Stack.Screen name="notification-page/index" options={{ title: "Notification page" }}  
   
         
 

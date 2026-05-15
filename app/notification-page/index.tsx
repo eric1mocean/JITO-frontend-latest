@@ -19,25 +19,37 @@ type Notification = {
   read: boolean;
 };
 
+type NotificationsByType = {
+  userNotifications: Notification[];
+  taskNotifications: Notification[];
+};
+
 export default function NotificationsScreen() {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [userNotifications, setUserNotifications] = useState<Notification[]>([]);
+  const [taskNotifications, setTaskNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState<Record<number, boolean>>({});
 
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-      const res = await axios.get<Notification[]>(
-        `${api_route}/getNotifcations/`
+      const res = await axios.get<NotificationsByType>(
+        `${api_route}/getNotifications`
       );
-      console.log("Fetched notifications:", res.data);
-      const sorted = res.data.sort(
+
+      const sortedUsers = [...res.data.userNotifications].sort(
+        (a, b) =>
+          new Date(b.actionDate).getTime() -
+          new Date(a.actionDate).getTime()
+      );
+      const sortedTasks = [...res.data.taskNotifications].sort(
         (a, b) =>
           new Date(b.actionDate).getTime() -
           new Date(a.actionDate).getTime()
       );
 
-      setNotifications(sorted);
+      setUserNotifications(sortedUsers);
+      setTaskNotifications(sortedTasks);
     } catch (e) {
       console.log("Error fetching notifications", e);
     } finally {
@@ -86,14 +98,6 @@ export default function NotificationsScreen() {
       </TouchableOpacity>
     );
   };
-
-  const userNotifications = notifications.filter(
-    (n) => n.notificationType === "USER_RELATED"
-  );
-
-  const taskNotifications = notifications.filter(
-    (n) => n.notificationType === "TASK_RELATED"
-  );
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
