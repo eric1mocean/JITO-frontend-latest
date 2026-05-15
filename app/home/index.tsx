@@ -93,6 +93,7 @@ const HomePage = () => {
         {user?.role === 'teamleader' ? (
           <>
             <MenuButton title="📋 View Tasks" route="/view-tasks" />
+            <MenuButton title="🛠 Edit Closed Tasks" route="/teamleader-closed-tasks" />
             <MenuButton title="➕ Create Task" route="/create-task" />
             <MenuButton title="👥 Assign Task" route="/assign-task" />
             <MenuButton title="🗑 Delete Task" route="/delete-task" />
