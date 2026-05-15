@@ -1,0 +1,25 @@
+[
+  { "id": 1, "title": "Open Task 1", "status": 0 },
+  { "id": 2, "title": "Open Task 2", "status": 0 },
+  { "id": 3, "title": "Open Task 3", "status": 0 },
+  { "id": 4, "title": "Open Task 4", "status": 0 },
+  { "id": 5, "title": "Open Task 5", "status": 0 },
+
+  { "id": 6, "title": "Pending Task 1", "status": 1 },
+  { "id": 7, "title": "Pending Task 2", "status": 1 },
+  { "id": 8, "title": "Pending Task 3", "status": 1 },
+  { "id": 9, "title": "Pending Task 4", "status": 1 },
+  { "id": 10, "title": "Pending Task 5", "status": 1 },
+
+  { "id": 11, "title": "InProgress Task 1", "status": 2 },
+  { "id": 12, "title": "InProgress Task 2", "status": 2 },
+  { "id": 13, "title": "InProgress Task 3", "status": 2 },
+  { "id": 14, "title": "InProgress Task 4", "status": 2 },
+  { "id": 15, "title": "InProgress Task 5", "status": 2 },
+
+  { "id": 16, "title": "Completed Task 1", "status": 3 },
+  { "id": 17, "title": "Completed Task 2", "status": 3 },
+  { "id": 18, "title": "Completed Task 3", "status": 3 },
+  { "id": 19, "title": "Completed Task 4", "status": 3 },
+  { "id": 20, "title": "Completed Task 5", "status": 3 }
+]
