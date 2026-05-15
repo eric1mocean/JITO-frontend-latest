@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import data from "../data.json";
 import { useSearch } from "./useSearch";
+
+const LOCKED_STATUS_VALUES = [3, 5];
+
 export const usefetchTasks = () => {
     const [dataOfCols, setDataOfCols] = useState({});
     const [tasks, setTasks] = useState([]); 
@@ -38,6 +41,10 @@ export const usefetchTasks = () => {
         updateColumns(newTask);
     }
     const changeStatus = (task, newStatus) => {
+    if (LOCKED_STATUS_VALUES.includes(task.status)) {
+      return;
+    }
+
     const updated = tasks.map(t =>
       t.id === task.id ? { ...t, status: newStatus } : t
     );

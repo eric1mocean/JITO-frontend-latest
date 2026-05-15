@@ -26,6 +26,8 @@ import axios from 'axios';
 import { statusLabels } from './constants';
 import { usefetchTasks } from './customHooks/useFetchTasks';
 
+const isLockedStatus = (status) => status === 3 || status === 5 || status === 'COMPLETED' || status === 'CANCELLED';
+
 const AppContent = () => {
   
   
@@ -80,7 +82,11 @@ const AppContent = () => {
 
                     <Picker
                       selectedValue={item.status}
-                      onValueChange={(value) => changeStatus(item, value)}
+                      onValueChange={(value) => {
+                        if (isLockedStatus(item.status)) return;
+                        changeStatus(item, value);
+                      }}
+                      enabled={!isLockedStatus(item.status)}
                       style={styles.picker}
                     >
                       {Object.entries(statusLabels).map(([val, label]) => (

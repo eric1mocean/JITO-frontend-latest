@@ -30,6 +30,8 @@ enum TaskStatus {
     ONHOLD = "ONHOLD"
 }
 
+const LOCKED_STATUSES: TaskStatus[] = [TaskStatus.CANCELLED, TaskStatus.COMPLETED];
+
 type TaskDTO = {
     id: number;
     title: string;
@@ -81,6 +83,11 @@ const UserTasksPage = () => {
    newStatus: TaskStatus
 ) => {
    try {
+
+        const currentTask = tasks.find((task: TaskDTO) => task.id === taskId);
+        if (currentTask && LOCKED_STATUSES.includes(currentTask.status)) {
+            return;
+        }
 
       if (!userId) {
          return;
