@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
 
   menuButton: {
-    backgroundColor: '#111827',
+    backgroundColor: '#202d4b',
     paddingVertical: 18,
     borderRadius: 16,
     alignItems: 'center',

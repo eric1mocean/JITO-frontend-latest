@@ -108,7 +108,9 @@ export default function RegisterScreen() {
           </Picker>
         )}
       />
-      <Button title="Register" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity style={styles.registerButton} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.registerButtonText}>REGISTER</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push('/login')}>
     <Text style={styles.linkText}>Already have an account? Login</Text>
     </TouchableOpacity>
@@ -146,4 +148,16 @@ const styles = StyleSheet.create({
   color: '#007bff',
   textAlign: 'center',
  },
-});
+
+  registerButton: {
+  backgroundColor: '#063567',
+  paddingVertical: 12,
+  paddingHorizontal: 24,
+  borderRadius: 14,
+  alignItems: 'center',
+},
+registerButtonText: {
+  color: 'white',
+  fontWeight: 'bold',
+  
+}});
