@@ -109,7 +109,6 @@ const HomePage = () => {
               route="/inactive-users"
             />
             <MenuButton title="📋 View Tasks" route="/view-tasks" />
-            <MenuButton title="❌ Delete User" route="/delete-user" />
           </>
         ) : (
           <MenuButton title="📋 User Tasks" route="/user-tasks" />
