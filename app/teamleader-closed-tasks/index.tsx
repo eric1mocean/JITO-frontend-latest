@@ -147,6 +147,40 @@ export default function TeamleaderClosedTasksPage() {
     }
   };
 
+  const deleteTask = async (taskId: number) => {
+    if (!userId) {
+      Alert.alert("Error", "User not found.");
+      return;
+    }
+
+    try {
+      setSavingTaskId(taskId);
+      await axios.delete(`${api_route}/deleteTask/${taskId}/${userId}`);
+      Alert.alert("Success", "Task deleted successfully.");
+      await fetchClosedTasks();
+    } catch (error: any) {
+      console.error("Failed to delete task", error?.response?.data || error?.message);
+      Alert.alert("Error", "Could not delete task.");
+    } finally {
+      setSavingTaskId(null);
+    }
+  };
+
+  const confirmDelete = (taskId: number) => {
+    Alert.alert(
+      "Delete Task",
+      "Are you sure you want to delete this task? This action cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => deleteTask(taskId),
+        },
+      ]
+    );
+  };
+
   const renderTask = ({ item }: { item: TaskDTO }) => {
     const form = editable[item.taskId];
     if (!form) return null;
@@ -188,6 +222,16 @@ export default function TeamleaderClosedTasksPage() {
         >
           <Text style={styles.saveText}>
             {savingTaskId === item.taskId ? "Saving..." : "Save Changes"}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => confirmDelete(item.taskId)}
+          disabled={savingTaskId === item.taskId}
+        >
+          <Text style={styles.deleteText}>
+            {savingTaskId === item.taskId ? "Processing..." : "Delete Task"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -286,6 +330,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   saveText: {
+    color: "#fff",
+    fontWeight: "700",
+  },
+  deleteButton: {
+    marginTop: 8,
+    backgroundColor: "#dc2626",
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+  },
+  deleteText: {
     color: "#fff",
     fontWeight: "700",
   },
