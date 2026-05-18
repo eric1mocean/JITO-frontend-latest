@@ -16,6 +16,16 @@ type User = {
     id: number
 }
 
+type FilteredTasksDTO = {
+    getTasksDTOPending: TaskDTO[];
+    getTasksDTOCompleted: TaskDTO[];
+    getTasksDTOInProgress: TaskDTO[];
+    getTasksDTOOpen: TaskDTO[];
+    getTasksDTORejected: TaskDTO[];
+    getTasksDTOCancelled: TaskDTO[];
+    getTasksDTOOnHold: TaskDTO[];
+}
+
 const TasksListPage = () => {
 
     const [tasks, setTasks] = useState<TaskDTO[]>([])
@@ -36,24 +46,38 @@ const TasksListPage = () => {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get<TaskDTO[]>(`${api_route}/getTasks`)
-            setTasks(response.data)
-        } catch (e) {
-            console.log("Error fetching tasks")
+            const response = await axios.get<FilteredTasksDTO>(`${api_route}/getFilteredTasks`)
+            // Flatten all tasks from all categories
+            const allTasks = [
+                ...response.data.getTasksDTOPending,
+                ...response.data.getTasksDTOCompleted,
+                ...response.data.getTasksDTOInProgress,
+                ...response.data.getTasksDTOOpen,
+                ...response.data.getTasksDTORejected,
+                ...response.data.getTasksDTOCancelled,
+                ...response.data.getTasksDTOOnHold,
+            ]
+            setTasks(allTasks)
+            console.log("Tasks fetched successfully:", allTasks.length, "tasks")
+        } catch (e: any) {
+            console.error("Error fetching tasks:", e?.response?.data || e?.message || e)
+            Alert.alert("Error", `Failed to fetch tasks: ${e?.message || "Unknown error"}`)
         }
     }
 
     const deleteTask = async (taskId: number) => {
         if (!user) {
-            console.log("User not loaded")
+            Alert.alert("Error", "User not loaded")
             return
         }
 
         try {
             await axios.delete(`${api_route}/deleteTask/${taskId}/${user.id}`)
             setTasks(prev => prev.filter(t => t.taskId !== taskId))
-        } catch (e) {
-            console.log("Error deleting task")
+            Alert.alert("Success", "Task deleted successfully")
+        } catch (e: any) {
+            console.error("Error deleting task:", e?.response?.data || e?.message || e)
+            Alert.alert("Error", `Failed to delete task: ${e?.message || "Unknown error"}`)
         }
     }
 
