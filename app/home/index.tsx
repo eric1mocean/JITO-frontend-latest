@@ -109,7 +109,6 @@ const HomePage = () => {
               route="/inactive-users"
             />
             <MenuButton title="📋 View Tasks" route="/view-tasks" />
-            <MenuButton title="❌ Delete User" route="/delete-user" />
           </>
         ) : (
           <MenuButton title="📋 User Tasks" route="/user-tasks" />
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
   },
 
   menuButton: {
-    backgroundColor: '#111827',
+    backgroundColor: '#202d4b',
     paddingVertical: 18,
     borderRadius: 16,
     alignItems: 'center',

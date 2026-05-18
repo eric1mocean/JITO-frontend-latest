@@ -111,7 +111,12 @@ export default function LoginScreen() {
         <Text style={styles.error}>{errors.confirmPassword.message}</Text>
       )}
 
-      <Button title="Login" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={handleSubmit(onSubmit)}
+      >
+      <Text style={styles.loginButtonText}>LOGIN</Text>
+    </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push('/register')}>
       <Text style={styles.linkText}>Don't have an account? Register</Text>
     </TouchableOpacity>
@@ -148,5 +153,17 @@ const styles = StyleSheet.create({
   marginTop: 16,
   color: '#007bff',
   textAlign: 'center',
+ },
+ loginButton: {
+  backgroundColor: '#063567',
+  paddingVertical: 12,
+  paddingHorizontal: 24,
+  borderRadius: 14,
+  alignItems: 'center',
+ },
+ loginButtonText: {
+  color: 'white',
+  fontSize: 14,
+  fontWeight: 'bold',
  },
 });
